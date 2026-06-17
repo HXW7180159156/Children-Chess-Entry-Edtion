@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Chessboard } from 'react-chessboard'
 import { motion } from 'motion/react'
 import { ChevronLeft, ChevronRight, Check } from 'lucide-react'
@@ -11,8 +11,8 @@ import { soundManager } from '../audio/soundManager'
 export default function LessonPlayer() {
   const { chapterId } = useParams<{ chapterId: string }>();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
   const [complete, setCompleteState] = useState(false);
+  const chapter = useMemo(() => (chapterId ? loadChapter(chapterId) : null), [chapterId]);
 
   const {
     currentChapter, currentStepIndex,
@@ -23,13 +23,10 @@ export default function LessonPlayer() {
   const completeLesson = useProgressStore((s) => s.completeLesson);
 
   useEffect(() => {
-    if (!chapterId) return;
-    const chapter = loadChapter(chapterId);
     if (chapter) {
       startChapter(chapter);
     }
-    setLoading(false);
-  }, [chapterId]);
+  }, [chapter, startChapter]);
 
   const handleComplete = () => {
     const result = finishLesson();
@@ -39,16 +36,6 @@ export default function LessonPlayer() {
     soundManager.play('applause');
     setCompleteState(true);
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full text-4xl">
-        <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}>
-          ♟️
-        </motion.div>
-      </div>
-    );
-  }
 
   if (!currentChapter) {
     return (

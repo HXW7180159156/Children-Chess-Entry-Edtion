@@ -99,26 +99,19 @@ export default function MiniGamePlayer() {
   // Timer
   useEffect(() => {
     if (mode !== 'playing' || !config?.timeLimit) return;
-    setTimeLeft(config.timeLimit);
     const id = setInterval(() => {
       setTimeLeft((prev) => {
         const next = prev - 1;
         if (next <= 0) {
           clearInterval(id);
+          endGame();
           return 0;
         }
         return next;
       });
     }, 1000);
     return () => clearInterval(id);
-  }, [mode, config?.timeLimit]);
-
-  // End game when timer reaches 0
-  useEffect(() => {
-    if (mode === 'playing' && config?.timeLimit && timeLeft <= 0) {
-      endGame();
-    }
-  }, [timeLeft, mode, config?.timeLimit, endGame]);
+  }, [mode, config?.timeLimit, endGame]);
 
   const handleCorrect = useCallback(() => {
     setCombo((c) => {
