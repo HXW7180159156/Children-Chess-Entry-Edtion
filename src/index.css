@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-kids-bg: #FFF8F0;
+  --color-kids-light: #F0D9B5;
+  --color-kids-dark: #B58863;
+  --color-kids-coral: #FF6B6B;
+  --color-kids-coral-hover: #FF5252;
+  --color-kids-teal: #4ECDC4;
+  --color-kids-teal-hover: #44B5AD;
+  --color-kids-yellow: #FFE66D;
+  --color-kids-green: #51CF66;
+  --color-kids-purple: #9775FA;
+  --color-kids-orange: #FF922B;
+  --color-kids-pink: #F06595;
+  --color-kids-text: #3D3522;
+  --color-kids-text-light: #7D6F5D;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-kids-bg);
+  color: var(--color-kids-text);
+  font-family: 'Nunito', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior: none;
+}
+
+/* Big friendly touch targets */
+.touch-target {
+  min-width: 72px;
+  min-height: 72px;
+}
+
+/* Prevent pull-to-refresh on mobile */
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  overflow: hidden;
+}
