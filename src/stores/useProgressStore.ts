@@ -82,7 +82,7 @@ export const useProgressStore = create<ProgressState>()(
 
       setActiveProfile: (id) => set({ activeProfileId: id }),
 
-      completeLesson: (chapterId, stars, _mistakes, _hintsUsed) => {
+      completeLesson: (chapterId, stars) => {
         set((state) => {
           if (!state.activeProfileId) return state;
           const prog = { ...state.progress[state.activeProfileId] };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { Square } from 'chess.js'
 import { Chess } from 'chess.js'
 import { motion } from 'motion/react'
@@ -32,26 +32,26 @@ export default function PlayAI() {
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
   const [playerColor, setPlayerColor] = useState<Player>('white');
   const [hint, setHint] = useState('');
-  const [gameOverRecorded, setGameOverRecorded] = useState(false);
+  const gameOverRecordedRef = useRef(false);
 
   // Record results when game ends
   useEffect(() => {
-    if (status !== 'playing' && !gameOverRecorded && config) {
+    if (status !== 'playing' && !gameOverRecordedRef.current && config) {
       const playerWon =
         (status === 'checkmate' && config.playerColor === 'white' && fen.split(' ')[1] === 'b') ||
         (status === 'checkmate' && config.playerColor === 'black' && fen.split(' ')[1] === 'w');
       recordGameResult(playerWon);
       checkStreak();
-      setGameOverRecorded(true);
+      gameOverRecordedRef.current = true;
 
       if (playerWon) soundManager.play('victory');
       else soundManager.play('click');
     }
-  }, [status, gameOverRecorded]);
+  }, [status, config, fen, recordGameResult, checkStreak]);
 
   const handleStartGame = () => {
     setSetup(false);
-    setGameOverRecorded(false);
+    gameOverRecordedRef.current = false;
     setHint('');
     newGame({ difficulty, playerColor });
     soundManager.play('click');

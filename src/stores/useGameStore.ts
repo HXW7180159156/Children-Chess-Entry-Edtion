@@ -193,9 +193,10 @@ export const useGameStore = create<GameState>()((set, get) => ({
     const state = get();
     const playerColor = state.config?.playerColor;
     switch (state.status) {
-      case 'checkmate':
+      case 'checkmate': {
         const winner = state.chess.turn() === 'w' ? 'black' : 'white';
         return winner === playerColor ? '🎉 太棒了！你赢了！' : '😊 再试一次吧！';
+      }
       case 'stalemate':
         return '🤝 和棋！';
       case 'draw':

@@ -101,6 +101,16 @@ npm run build     # TypeScript 检查 + Vite 构建，输出到 dist/
 npm run preview   # 本地预览构建结果
 ```
 
+### 部署到 GitHub 云端
+
+项目已配置为通过 GitHub Pages 自动部署：
+
+1. 在仓库 **Settings → Pages** 中将 **Source** 设置为 **GitHub Actions**。
+2. 将代码推送到 `main` 分支后，GitHub 会自动执行 `.github/workflows/deploy-pages.yml`。
+3. 部署完成后，可通过仓库的 GitHub Pages 地址访问应用。
+
+由于站点使用 Hash 路由和相对静态资源路径，部署到仓库子路径后也能正常刷新和访问页面。
+
 ### 典型使用流程
 
 1. **首次访问**：应用自动创建默认角色「小棋手」。可在设置中修改名字和头像。

@@ -15,19 +15,21 @@ export type SoundEffect =
   | 'pop'
   | 'swoosh';
 
+const BASE_SOUND_PATH = `${import.meta.env.BASE_URL}sounds/`;
+
 const SOUND_FILES: Record<SoundEffect, string> = {
-  click: '/sounds/click.mp3',
-  move: '/sounds/move.mp3',
-  capture: '/sounds/capture.mp3',
-  check: '/sounds/check.mp3',
-  checkmate: '/sounds/checkmate.mp3',
-  wrong: '/sounds/wrong.mp3',
-  correct: '/sounds/correct.mp3',
-  applause: '/sounds/applause.mp3',
-  victory: '/sounds/victory.mp3',
-  countdown: '/sounds/countdown.mp3',
-  pop: '/sounds/pop.mp3',
-  swoosh: '/sounds/swoosh.mp3',
+  click: `${BASE_SOUND_PATH}click.mp3`,
+  move: `${BASE_SOUND_PATH}move.mp3`,
+  capture: `${BASE_SOUND_PATH}capture.mp3`,
+  check: `${BASE_SOUND_PATH}check.mp3`,
+  checkmate: `${BASE_SOUND_PATH}checkmate.mp3`,
+  wrong: `${BASE_SOUND_PATH}wrong.mp3`,
+  correct: `${BASE_SOUND_PATH}correct.mp3`,
+  applause: `${BASE_SOUND_PATH}applause.mp3`,
+  victory: `${BASE_SOUND_PATH}victory.mp3`,
+  countdown: `${BASE_SOUND_PATH}countdown.mp3`,
+  pop: `${BASE_SOUND_PATH}pop.mp3`,
+  swoosh: `${BASE_SOUND_PATH}swoosh.mp3`,
 };
 
 class SoundManager {
@@ -59,7 +61,7 @@ class SoundManager {
   unlock() {
     Howler.ctx?.resume();
     // Play a silent sound to unlock audio context
-    const silent = new Howl({ src: ['/sounds/click.mp3'], volume: 0 });
+    const silent = new Howl({ src: [SOUND_FILES.click], volume: 0 });
     silent.play();
     silent.once('end', () => silent.unload());
   }
