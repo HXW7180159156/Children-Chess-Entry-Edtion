@@ -7,6 +7,7 @@ import { useLessonStore } from '../stores/useLessonStore'
 import { useProgressStore } from '../stores/useProgressStore'
 import { loadChapter } from '../data/lessons/loadChapter'
 import { soundManager } from '../audio/soundManager'
+import { useBoardSize } from '../utils/useBoardSize'
 
 export default function LessonPlayer() {
   const { chapterId } = useParams<{ chapterId: string }>();
@@ -21,6 +22,7 @@ export default function LessonPlayer() {
   } = useLessonStore();
 
   const completeLesson = useProgressStore((s) => s.completeLesson);
+  const boardSize = useBoardSize();
 
   useEffect(() => {
     if (chapter) {
@@ -103,7 +105,7 @@ export default function LessonPlayer() {
       </div>
 
       {/* Chess board */}
-      <div className="flex justify-center">
+      <div style={{ width: boardSize }} className="mx-auto">
         <Chessboard
           options={{
             position: step?.fen ?? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
