@@ -6,6 +6,7 @@ import { Chessboard } from 'react-chessboard'
 import { useProgressStore } from '../stores/useProgressStore'
 import { soundManager } from '../audio/soundManager'
 import { formatTime } from '../utils/misc'
+import { useBoardSize } from '../utils/useBoardSize'
 import type { GameMode } from '../types/games'
 
 interface GameConfig {
@@ -79,6 +80,8 @@ export default function MiniGamePlayer() {
 
   const scoreRef = useRef(score);
   useEffect(() => { scoreRef.current = score; }, [score]);
+
+  const boardSize = useBoardSize();
 
   const startGame = useCallback(() => {
     if (!config) return;
@@ -212,7 +215,7 @@ export default function MiniGamePlayer() {
 
           <p className="text-sm text-kids-text-light text-center max-w-xs bg-kids-yellow/20 rounded-xl px-4 py-2">💡 {config.instructions}</p>
 
-          <div className="flex justify-center">
+          <div style={{ width: boardSize }} className="mx-auto">
             <Chessboard key="minigame-board" options={boardOptions} />
           </div>
 

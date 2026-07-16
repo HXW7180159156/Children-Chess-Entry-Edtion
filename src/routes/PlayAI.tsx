@@ -7,6 +7,7 @@ import { Brain, Lightbulb, RotateCcw, Flag } from 'lucide-react'
 import { useGameStore } from '../stores/useGameStore'
 import { useProgressStore } from '../stores/useProgressStore'
 import { soundManager } from '../audio/soundManager'
+import { useBoardSize } from '../utils/useBoardSize'
 import type { Difficulty, Player } from '../types/chess'
 
 const DIFFICULTY_OPTIONS: { value: Difficulty; label: string; emoji: string }[] = [
@@ -33,6 +34,7 @@ export default function PlayAI() {
   const [playerColor, setPlayerColor] = useState<Player>('white');
   const [hint, setHint] = useState('');
   const gameOverRecordedRef = useRef(false);
+  const boardSize = useBoardSize();
 
   // Record results when game ends
   useEffect(() => {
@@ -202,7 +204,7 @@ export default function PlayAI() {
       )}
 
       {/* Chess board */}
-      <div className="flex justify-center">
+      <div style={{ width: boardSize }} className="mx-auto">
         <Chessboard
           options={{
             id: 'play-chessboard',
